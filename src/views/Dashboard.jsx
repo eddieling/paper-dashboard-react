@@ -32,13 +32,16 @@ import {
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 import { MyModal } from "components/Modal/Modal.jsx";
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
 // class Dashboard extends Component {
 export const Dashboard = () => {
 
   const members = [
     {
+      id: 0,
       fullname: 'Eddie Ling',
       email: 'eddie@email.com',
       birthdate: '10 June 1995',
@@ -46,6 +49,7 @@ export const Dashboard = () => {
       registered: '9 January 2020'
     },
     {
+      id: 1,
       fullname: 'Marcos Bob',
       email: 'bob@email.com',
       birthdate: '15 February 1998',
@@ -53,6 +57,7 @@ export const Dashboard = () => {
       registered: '8 January 2020'
     },
     {
+      id: 2,
       fullname: 'Poppy Leigh',
       email: 'poppy@email.com',
       birthdate: '7 March 1990',
@@ -60,6 +65,7 @@ export const Dashboard = () => {
       registered: '8 January 2020'
     },
     {
+      id: 3,
       fullname: 'Terry Sanders',
       email: 'terry@email.com',
       birthdate: '29 September 1980',
@@ -103,6 +109,9 @@ export const Dashboard = () => {
 
   const [modalShow, setModalShow] = React.useState(false);
 
+
+  
+
   return (
     <>
       <div className="content">
@@ -129,7 +138,7 @@ export const Dashboard = () => {
                           hover
                           rowEvents={rowEvents}
                           rowStyle={rowStyle}
-
+                          pagination={ paginationFactory() }
                         />
                       </div>
 
