@@ -16,7 +16,6 @@ export class CustomSignIn extends SignIn {
     super(props);
     this._validAuthStates = ["signIn", "signedOut", "signedUp"];
     this.handleSubmit = this.handleSubmit.bind(this);
-  
   }
 
   handleSubmit(e) {

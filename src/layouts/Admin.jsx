@@ -29,6 +29,8 @@ import routes from "routes.js";
 
 import {CustomSignIn}  from "components/Auth/CustomSignIn";
 import {CustomForgotPassword}  from "components/Auth/CustomForgotPassword";
+import {CustomRequireNewPassword}  from "components/Auth/CustomRequireNewPassword";
+import {CustomVerifyContact}  from "components/Auth/CustomVerifyContact";
 
 import Amplify from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react'; // or 'aws-amplify-react-native';
@@ -111,5 +113,7 @@ class Admin extends React.Component {
 // export default Admin;
 export default withAuthenticator(Admin, false, [
   <CustomSignIn/>,
-  <CustomForgotPassword/>
+  <CustomForgotPassword/>,
+  <CustomRequireNewPassword/>,
+  <CustomVerifyContact/>,
 ]);
