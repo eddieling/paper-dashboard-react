@@ -29,206 +29,127 @@ import {
   Row,
   Col
 } from "reactstrap";
-// core components
-import {
-  dashboard24HoursPerformanceChart,
-  dashboardEmailStatisticsChart,
-  dashboardNASDAQChart
-} from "variables/charts.jsx";
 
-class Dashboard extends React.Component {
-  render() {
-    return (
-      <>
-        <div className="content">
-          <Row>
-            <Col lg="3" md="6" sm="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-globe text-warning" />
+import BootstrapTable from 'react-bootstrap-table-next';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { MyModal } from "components/Modal/Modal.jsx";
+
+// class Dashboard extends Component {
+export const Dashboard = () => {
+
+  const members = [
+    {
+      fullname: 'Eddie Ling',
+      email: 'eddie@email.com',
+      birthdate: '10 June 1995',
+      phone: '016-123-5343',
+      registered: '9 January 2020'
+    },
+    {
+      fullname: 'Marcos Bob',
+      email: 'bob@email.com',
+      birthdate: '15 February 1998',
+      phone: '012-123-1313',
+      registered: '8 January 2020'
+    },
+    {
+      fullname: 'Poppy Leigh',
+      email: 'poppy@email.com',
+      birthdate: '7 March 1990',
+      phone: '012-098-7543',
+      registered: '8 January 2020'
+    },
+    {
+      fullname: 'Terry Sanders',
+      email: 'terry@email.com',
+      birthdate: '29 September 1980',
+      phone: '010-113-3355',
+      registered: '8 January 2020'
+    },
+  ]
+  const { SearchBar } = Search;
+  const columns = [{
+    dataField: 'fullname',
+    text: 'Name'
+  }, {
+    dataField: 'email',
+    text: 'Email'
+  }, {
+    dataField: 'birthdate',
+    text: 'Birth Date'
+  }, {
+    dataField: 'phone',
+    text: 'Phone'
+  }, {
+    dataField: 'registered',
+    text: 'Member Since'
+  }];
+
+  const rowEvents = {
+    onClick: (e, row, rowIndex) => {
+      console.log(`clicked on row with index: ${rowIndex}`);
+      setModalShow(true);
+    },
+    onMouseEnter: (e, row, rowIndex) => {
+      console.log(`enter on row with index: ${rowIndex}`);
+    }
+  };
+
+  const rowStyle = (row, rowIndex) => {
+    return {
+      cursor: 'pointer'
+    };
+  };
+
+  const [modalShow, setModalShow] = React.useState(false);
+
+  return (
+    <>
+      <div className="content">
+        <Row>
+          <Col md="12">
+            <Card>
+              <CardHeader>
+                <CardTitle tag="h5">All Members</CardTitle>
+              </CardHeader>
+              <CardBody>
+                <ToolkitProvider
+                  keyField="id"
+                  data={members}
+                  columns={columns}
+                  search
+                >
+                  {
+                    props => (
+                      <div>
+                        <SearchBar {...props.searchProps} style={{ width: 200, height: 40 }} />
+                        <BootstrapTable
+                          {...props.baseProps}
+                          // striped
+                          hover
+                          rowEvents={rowEvents}
+                          rowStyle={rowStyle}
+
+                        />
                       </div>
-                    </Col>
-                    <Col md="8" xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Capacity</p>
-                        <CardTitle tag="p">150GB</CardTitle>
-                        <p />
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update Now
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6" sm="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-money-coins text-success" />
-                      </div>
-                    </Col>
-                    <Col md="8" xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Revenue</p>
-                        <CardTitle tag="p">$ 1,345</CardTitle>
-                        <p />
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="far fa-calendar" /> Last day
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6" sm="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-vector text-danger" />
-                      </div>
-                    </Col>
-                    <Col md="8" xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Errors</p>
-                        <CardTitle tag="p">23</CardTitle>
-                        <p />
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="far fa-clock" /> In the last hour
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6" sm="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-favourite-28 text-primary" />
-                      </div>
-                    </Col>
-                    <Col md="8" xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Followers</p>
-                        <CardTitle tag="p">+45K</CardTitle>
-                        <p />
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update now
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h5">Users Behavior</CardTitle>
-                  <p className="card-category">24 Hours performance</p>
-                </CardHeader>
-                <CardBody>
-                  <Line
-                    data={dashboard24HoursPerformanceChart.data}
-                    options={dashboard24HoursPerformanceChart.options}
-                    width={400}
-                    height={100}
-                  />
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="fa fa-history" /> Updated 3 minutes ago
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="4">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h5">Email Statistics</CardTitle>
-                  <p className="card-category">Last Campaign Performance</p>
-                </CardHeader>
-                <CardBody>
-                  <Pie
-                    data={dashboardEmailStatisticsChart.data}
-                    options={dashboardEmailStatisticsChart.options}
-                  />
-                </CardBody>
-                <CardFooter>
-                  <div className="legend">
-                    <i className="fa fa-circle text-primary" /> Opened{" "}
-                    <i className="fa fa-circle text-warning" /> Read{" "}
-                    <i className="fa fa-circle text-danger" /> Deleted{" "}
-                    <i className="fa fa-circle text-gray" /> Unopened
-                  </div>
-                  <hr />
-                  <div className="stats">
-                    <i className="fa fa-calendar" /> Number of emails sent
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col md="8">
-              <Card className="card-chart">
-                <CardHeader>
-                  <CardTitle tag="h5">NASDAQ: AAPL</CardTitle>
-                  <p className="card-category">Line Chart with Points</p>
-                </CardHeader>
-                <CardBody>
-                  <Line
-                    data={dashboardNASDAQChart.data}
-                    options={dashboardNASDAQChart.options}
-                    width={400}
-                    height={100}
-                  />
-                </CardBody>
-                <CardFooter>
-                  <div className="chart-legend">
-                    <i className="fa fa-circle text-info" /> Tesla Model S{" "}
-                    <i className="fa fa-circle text-warning" /> BMW 5 Series
-                  </div>
-                  <hr />
-                  <div className="card-stats">
-                    <i className="fa fa-check" /> Data information certified
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </>
-    );
-  }
+
+
+                    )
+                  }
+                </ToolkitProvider>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        
+        <MyModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+
+      </div>
+    </>
+  );
 }
 
 export default Dashboard;

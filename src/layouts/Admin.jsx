@@ -27,9 +27,26 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 
 import routes from "routes.js";
 
+import {CustomSignIn}  from "components/Auth/CustomSignIn";
+import {CustomForgotPassword}  from "components/Auth/CustomForgotPassword";
+
+import Amplify from 'aws-amplify';
+import { withAuthenticator } from 'aws-amplify-react'; // or 'aws-amplify-react-native';
+
+Amplify.configure({
+  Auth: {
+      // REQUIRED - Amazon Cognito Region
+      region: 'ap-southeast-1',
+      // OPTIONAL - Amazon Cognito User Pool ID
+      userPoolId: 'ap-southeast-1_L6CxsPtni',
+      // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+      userPoolWebClientId: '6j0upol6pah3s8nmk24ld3nf09',
+  }
+});
+
 var ps;
 
-class Dashboard extends React.Component {
+class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,4 +108,8 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+// export default Admin;
+export default withAuthenticator(Admin, false, [
+  <CustomSignIn/>,
+  <CustomForgotPassword/>
+]);
