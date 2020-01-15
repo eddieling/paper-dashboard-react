@@ -25,6 +25,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
+  NavLink,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
@@ -35,6 +36,7 @@ import {
   InputGroupAddon,
   Input
 } from "reactstrap";
+import { Auth } from 'aws-amplify';
 
 import routes from "routes.js";
 
@@ -108,6 +110,12 @@ class Header extends React.Component {
       this.sidebarToggle.current.classList.toggle("toggled");
     }
   }
+  handleSignOut() {
+    Auth.signOut()
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+  }
+
   render() {
     return (
       // add or remove classes depending if we are on full-screen-maps page or not
@@ -194,6 +202,9 @@ class Header extends React.Component {
                     <span className="d-lg-none d-md-block">Account</span>
                   </p>
                 </Link>
+              </NavItem>
+              <NavItem onClick={this.handleSignOut}>
+              <NavLink href="">Log Out</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
