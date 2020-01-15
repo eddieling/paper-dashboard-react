@@ -110,8 +110,6 @@ export const Dashboard = () => {
   const [modalShow, setModalShow] = React.useState(false);
 
 
-  
-
   return (
     <>
       <div className="content">
@@ -134,6 +132,7 @@ export const Dashboard = () => {
                         <SearchBar {...props.searchProps} style={{ width: 200, height: 40 }} />
                         <BootstrapTable
                           {...props.baseProps}
+                          bootstrap4
                           // striped
                           hover
                           rowEvents={rowEvents}
