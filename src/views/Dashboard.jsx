@@ -16,15 +16,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-// react plugin used to create charts
-import { Line, Pie } from "react-chartjs-2";
-// reactstrap components
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
+  Button,
   CardTitle,
   Row,
   Col
@@ -33,46 +30,39 @@ import {
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import overlayFactory from 'react-bootstrap-table2-overlay';
 import { MyModal } from "components/Modal/Modal.jsx";
+import { AddUserModal } from "components/Modal/AddUserModal.jsx";
+import { EditUserModal } from "components/Modal/EditUserModal.jsx";
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import { fetchUsers } from '../api/users';
+import moment from 'moment';
 
-// class Dashboard extends Component {
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export const Dashboard = () => {
 
-  const members = [
-    {
-      id: 0,
-      fullname: 'Eddie Ling',
-      email: 'eddie@email.com',
-      birthdate: '10 June 1995',
-      phone: '016-123-5343',
-      registered: '9 January 2020'
-    },
-    {
-      id: 1,
-      fullname: 'Marcos Bob',
-      email: 'bob@email.com',
-      birthdate: '15 February 1998',
-      phone: '012-123-1313',
-      registered: '8 January 2020'
-    },
-    {
-      id: 2,
-      fullname: 'Poppy Leigh',
-      email: 'poppy@email.com',
-      birthdate: '7 March 1990',
-      phone: '012-098-7543',
-      registered: '8 January 2020'
-    },
-    {
-      id: 3,
-      fullname: 'Terry Sanders',
-      email: 'terry@email.com',
-      birthdate: '29 September 1980',
-      phone: '010-113-3355',
-      registered: '8 January 2020'
-    },
-  ]
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedMember, setSelectedMember] = useState({});
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+
+  const getUsers = async () => {
+    const result = await fetchUsers();
+    const listOfMembers = result.data.data;
+    listOfMembers.forEach(member => {
+      member.registered = moment(member.registered).format('DD/MM/YYYY');
+    })
+    setMembers(listOfMembers);
+    setLoading(false);
+  };
+
+  
   const { SearchBar } = Search;
   const columns = [{
     dataField: 'fullname',
@@ -94,7 +84,8 @@ export const Dashboard = () => {
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
       console.log(`clicked on row with index: ${rowIndex}`);
-      setModalShow(true);
+      setSelectedMember(row);
+      setEditModal(true);
     },
     onMouseEnter: (e, row, rowIndex) => {
       console.log(`enter on row with index: ${rowIndex}`);
@@ -108,6 +99,17 @@ export const Dashboard = () => {
   };
 
   const [modalShow, setModalShow] = React.useState(false);
+  const [addModal, setAddModal] = React.useState(false);
+  const [editModal, setEditModal] = React.useState(false);
+
+  const onHandleClose = () => {
+    setMembers([]);
+    setLoading(false);
+    setTimeout(() => {
+      getUsers();
+    }, 300);
+  };
+  
 
 
   return (
@@ -130,6 +132,10 @@ export const Dashboard = () => {
                     props => (
                       <div>
                         <SearchBar {...props.searchProps} style={{ width: 200, height: 40 }} />
+                        <Button color="secondary" className="float-right" style={{ margin: 0 }} onClick={()=> setAddModal(true)}>
+                          Add Member
+                          <i className="nc-icon nc-single-02" style={{ paddingLeft: 10 }}/>
+                        </Button>
                         <BootstrapTable
                           {...props.baseProps}
                           bootstrap4
@@ -137,11 +143,9 @@ export const Dashboard = () => {
                           hover
                           rowEvents={rowEvents}
                           rowStyle={rowStyle}
-                          pagination={ paginationFactory() }
+                          pagination={paginationFactory()}
                         />
                       </div>
-
-
                     )
                   }
                 </ToolkitProvider>
@@ -149,10 +153,19 @@ export const Dashboard = () => {
             </Card>
           </Col>
         </Row>
-        
-        <MyModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
+        <button onClick={getUsers}>click</button>
+        <FontAwesomeIcon icon={faHome} />
+
+        <AddUserModal
+          show={addModal}
+          onHide={() => setAddModal(false)}
+          handleClose={onHandleClose}
+        />
+        <EditUserModal
+          show={editModal}
+          selectedMember={selectedMember}
+          onHide={() => setEditModal(false)}
+          handleClose={onHandleClose}
         />
 
       </div>

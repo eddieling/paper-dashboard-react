@@ -61,8 +61,8 @@ export function MyModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+      <Modal.Header closeButton style={{height: 60}}>
+        <Modal.Title id="contained-modal-title-vcenter" style={{marginTop: 0}}>
           Edit Information
           </Modal.Title>
       </Modal.Header>
@@ -191,7 +191,7 @@ export function MyModal(props) {
         </Form>
       </Modal.Body>
 
-      <Modal.Footer>
+      <Modal.Footer style={{height: 60}}>
         {/* <Button bsStyle="info" pullRight fill type="submit"> */}
         <Button  type="submit">
           Update Profile
