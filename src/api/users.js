@@ -29,6 +29,7 @@ export const updateUser = (payload) =>
       fullname: payload.fullname,
       email: payload.email,
       phone: payload.phone,
+      role: payload.role,
       birthdate: payload.birthdate,
       address1: payload.address1,
       address2: payload.address2,
