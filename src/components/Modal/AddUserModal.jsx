@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
 
 import {
-  Grid,
+  Modal,
   Row,
   Col,
-  ControlLabel,
+  Button,
   Form
 } from "react-bootstrap";
-// import Form from 'react-bootstrap/lib/Form';
+
+import { listOfStates, listOfMonths, listOfDays, listOfYears, listOfCountries } from  'variables/general';
 
 import { addUser } from '../../api/users';
 
@@ -18,10 +18,13 @@ export function AddUserModal(props) {
     fullname: '',
     email: '',
     phone: '',
+    role: '',
     day: '',
     month: '',
     year: '',
-    birthdate: '',
+    birthDay: '',
+    birthMonth: '',
+    birthYear: '',
     address1: '',
     address2: '',
     city: '',
@@ -30,21 +33,11 @@ export function AddUserModal(props) {
     country: '',
   })
 
-  const listOfStates = ['Johor', 'Kedah', 'Kelantan', 'Kuala Lumpur', 'Labuan', 'Melaka', 'Negeri Sembilan', 'Pahang', 'Penang', 'Perak', 'Perlis', 'Putrajaya', 'Sabah', 'Sarawak', 'Selangor', 'Terengganu'];
-
-  const listOfMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-  const listOfDays = Array.from({ length: 31 }, (v, k) => k + 1);
-  const listOfYears = (Array.from({ length: 120 }, (v, k) => k + 1901)).reverse();
-
-  const countryList = require('country-list');
-  const listOfCountries = countryList.getNames().sort();
-
   const handleAddMember = (e) => {
     let birthdate = '';
-    if (state.day && state.month && state.year){
-      let monthNum = listOfMonths.indexOf(state.month) + 1;
-      birthdate = state.day + '/' + monthNum+ '/' + state.year;
+    if (state.birthDay && state.birthMonth && state.birthYear){
+      let monthNum = listOfMonths.indexOf(state.birthMonth) + 1;
+      birthdate = state.birthDay + '/' + monthNum+ '/' + state.birthYear;
     }
 
     e.preventDefault();
@@ -52,6 +45,7 @@ export function AddUserModal(props) {
       fullname: state.fullname,
       email: state.email,
       phone: state.phone,
+      role: state.role,
       birthdate: birthdate,
       address1: state.address1,
       address2: state.address2,
@@ -65,9 +59,11 @@ export function AddUserModal(props) {
     handleCloseUpdate();
   }
 
+  console.log('addusermodal state', state)
+  
 
   const reset = () => {
-    setState({fullname: '',email: '',phone: '',day: '',month: '',year: '',birthdate: '',address1: '',address2: '',city: '',state: '',postal: '',country: '',});
+    setState({});
   }
 
   const handleClose = () => {
@@ -125,12 +121,21 @@ export function AddUserModal(props) {
             </Col>
           </Form.Group>
 
+          <Form.Group as={Row} controlId="formHorizontalPhoneNum">
+            <Col sm={3}>
+              Role
+            </Col>
+            <Col sm={4}>
+              <Form.Control type="text" placeholder="Role" name="role" value={state.role} onChange={handleChange}/>
+            </Col>
+          </Form.Group>
+
           <Form.Group as={Row} controlId="formHorizontalDateOfBirth">
             <Col sm={3}>
               Date of Birth
             </Col>
             <Col sm={2}>
-              <Form.Control as="select" placeholder="Day" name="day" value={state.day} onChange={handleChange}>
+              <Form.Control as="select" placeholder="Day" name="birthDay" value={state.birthDay} onChange={handleChange}>
                 <option value="" style={{ display: 'none' }}>Day</option>
                 {listOfDays.map(i =>
                   <option key={i} value={i}>{i}</option>
@@ -138,7 +143,7 @@ export function AddUserModal(props) {
               </Form.Control>
             </Col>
             <Col sm={2} style={{ paddingLeft: 0 }}>
-              <Form.Control as="select" placeholder="select" name="month" value={state.month} onChange={handleChange}>
+              <Form.Control as="select" placeholder="select" name="birthMonth" value={state.birthMonth} onChange={handleChange}>
                 <option value="" style={{ display: 'none' }}>Month</option>
                 {listOfMonths.map(i =>
                   <option key={i} value={i}>{i}</option>
@@ -146,7 +151,7 @@ export function AddUserModal(props) {
               </Form.Control>
             </Col>
             <Col sm={2} style={{ paddingLeft: 0 }}>
-              <Form.Control as="select" placeholder="select" name="year" value={state.year} onChange={handleChange}>
+              <Form.Control as="select" placeholder="select" name="birthYear" value={state.birthYear} onChange={handleChange}>
                 <option value="" style={{ display: 'none' }}>Year</option>
                 {listOfYears.map(i =>
                   <option key={i} value={i}>{i}</option>
