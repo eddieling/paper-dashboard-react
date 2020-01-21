@@ -24,32 +24,36 @@ import {
   Button,
   CardTitle,
   Row,
-  Col
+  Col,
+
 } from "reactstrap";
+import {Form} from "react-bootstrap";
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import overlayFactory from 'react-bootstrap-table2-overlay';
-import { MyModal } from "components/Modal/Modal.jsx";
 import { AddUserModal } from "components/Modal/AddUserModal.jsx";
 import { EditUserModal } from "components/Modal/EditUserModal.jsx";
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import { fetchUsers } from '../api/users';
 import moment from 'moment';
-
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { listOfMonths } from 'variables/general';
 
 export const Dashboard = () => {
 
-  const [members, setMembers] = useState([]);
+  const [allMembers, setAllMembers] = useState([]);
+  const [filteredMembers, setFilteredMembers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedMember, setSelectedMember] = useState({});
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  useEffect(() => {
+    filterMonth();
+  }, [selectedMonth]);
 
 
   const getUsers = async () => {
@@ -58,18 +62,26 @@ export const Dashboard = () => {
     listOfMembers.forEach(member => {
       member.registered = moment(member.registered).format('DD/MM/YYYY');
     })
-    setMembers(listOfMembers);
+    setAllMembers(listOfMembers);
+    setFilteredMembers(listOfMembers);
     setLoading(false);
   };
 
-  
+  const filterMonth = () => {
+    let monthNum = listOfMonths.indexOf(selectedMonth) + 1;
+    const filteredMembersList = allMembers.filter(member => ((member.birthdate).split("/"))[1] == monthNum);
+    if (selectedMonth === '') {
+      setFilteredMembers(allMembers);
+    }
+    else {
+      setFilteredMembers(filteredMembersList);
+    }
+  };
+
   const { SearchBar } = Search;
   const columns = [{
     dataField: 'fullname',
     text: 'Name'
-  }, {
-    dataField: 'email',
-    text: 'Email'
   }, {
     dataField: 'birthdate',
     text: 'Birth Date'
@@ -77,18 +89,27 @@ export const Dashboard = () => {
     dataField: 'phone',
     text: 'Phone'
   }, {
-    dataField: 'registered',
-    text: 'Member Since'
+    dataField: 'role',
+    text: 'Role'
+  }, {
+    dataField: 'address1',
+    text: 'Address'
+  }, {
+    dataField: 'city',
+    text: 'City'
+  }, {
+    dataField: 'state',
+    text: 'State'
   }];
 
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
-      console.log(`clicked on row with index: ${rowIndex}`);
+      // console.log(`clicked on row with index: ${rowIndex}`);
       setSelectedMember(row);
       setEditModal(true);
     },
     onMouseEnter: (e, row, rowIndex) => {
-      console.log(`enter on row with index: ${rowIndex}`);
+      // console.log(`enter on row with index: ${rowIndex}`);
     }
   };
 
@@ -98,19 +119,24 @@ export const Dashboard = () => {
     };
   };
 
-  const [modalShow, setModalShow] = React.useState(false);
   const [addModal, setAddModal] = React.useState(false);
   const [editModal, setEditModal] = React.useState(false);
 
   const onHandleClose = () => {
-    setMembers([]);
+    reset();
+  };
+
+  const reset = () => {
+    setAllMembers([]);
+    setFilteredMembers([]);
+    setSelectedMember({});
     setLoading(false);
     setTimeout(() => {
       getUsers();
-    }, 300);
+    }, 800);
   };
-  
 
+  const handleSelectMonth = (e) => { setSelectedMonth(e.target.value) }
 
   return (
     <>
@@ -124,18 +150,38 @@ export const Dashboard = () => {
               <CardBody>
                 <ToolkitProvider
                   keyField="id"
-                  data={members}
+                  data={filteredMembers}
                   columns={columns}
                   search
                 >
                   {
                     props => (
                       <div>
-                        <SearchBar {...props.searchProps} style={{ width: 200, height: 40 }} />
-                        <Button color="secondary" className="float-right" style={{ margin: 0 }} onClick={()=> setAddModal(true)}>
-                          Add Member
-                          <i className="nc-icon nc-single-02" style={{ paddingLeft: 10 }}/>
-                        </Button>
+                        <Form>
+                          <Form.Row>
+                            <Form.Group as={Col} controlId="formGridState" style={{ maxWidth: 250, height: 40 }}>
+                              <SearchBar {...props.searchProps} style={{ width: 250 }} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="formHorizontalEmail">
+                              <Col sm={5}>
+                                <Form.Control as="select" placeholder="select" name="month" value={selectedMonth} onChange={handleSelectMonth}>
+                                  <option value="" >All months</option>
+                                  {listOfMonths.map(i =>
+                                    <option key={i} value={i}>{i}</option>
+                                  )};
+                                </Form.Control>
+                              </Col>
+                            </Form.Group>
+
+                            <Form.Group as={Col} controlId="formGridZip">
+                              <Button color="secondary" className="float-right" style={{ margin: 0 }} onClick={() => setAddModal(true)}>
+                                Add Member
+                                <i className="nc-icon nc-single-02" style={{ paddingLeft: 10 }} />
+                              </Button>
+                            </Form.Group>
+                          </Form.Row>
+                        </Form>
+
                         <BootstrapTable
                           {...props.baseProps}
                           bootstrap4
@@ -153,8 +199,6 @@ export const Dashboard = () => {
             </Card>
           </Col>
         </Row>
-        <button onClick={getUsers}>click</button>
-        <FontAwesomeIcon icon={faHome} />
 
         <AddUserModal
           show={addModal}
