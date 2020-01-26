@@ -3,16 +3,13 @@ const path = require('path')
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const pino = require('express-pino-logger')();
 
 const config = require("./config.js");
 
-app.use(express.static(path.join(__dirname, 'build')))
-app.get('/ping', (req, res) => {
-    return res.send('pong')
-  })
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(pino);
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
