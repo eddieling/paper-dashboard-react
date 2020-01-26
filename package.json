@@ -63,5 +63,9 @@
     "jquery": "3.4.1",
     "typescript": "3.4.5"
   },
+  "devServer": {
+    "compress": true,
+    "disableHostCheck": true
+  },  
   "proxy": "http://localhost:8080"
 }
