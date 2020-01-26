@@ -145,7 +145,7 @@ export const Dashboard = () => {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">All Members</CardTitle>
+                <CardTitle tag="h5">Members List</CardTitle>
               </CardHeader>
               <CardBody>
                 <ToolkitProvider

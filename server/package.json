@@ -1,0 +1,20 @@
+{
+  "name": "user-management-node",
+  "version": "1.0.0",
+  "description": "Simple User Management System API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
+  },
+  "author": "Sabuhi Nazarov",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.8.9"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}

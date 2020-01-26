@@ -23,7 +23,6 @@ import Typography from "views/Typography.jsx";
 import TableList from "views/Tables.jsx";
 import Maps from "views/Map.jsx";
 import UserPage from "views/User.jsx";
-import UpgradeToPro from "views/Upgrade.jsx";
 
 var routes = [
   {
