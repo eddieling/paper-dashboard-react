@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { Auth } from 'aws-amplify';
 // Create axios instance
 export const instance = axios.create({
-  baseURL: '',
+  baseURL: 'http://localhost:8080',
   timeout: 15000,  
 });
 

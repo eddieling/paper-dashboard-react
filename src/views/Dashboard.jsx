@@ -43,7 +43,6 @@ export const Dashboard = () => {
 
   const [allMembers, setAllMembers] = useState([]);
   const [filteredMembers, setFilteredMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedMember, setSelectedMember] = useState({});
 
@@ -64,12 +63,11 @@ export const Dashboard = () => {
     })
     setAllMembers(listOfMembers);
     setFilteredMembers(listOfMembers);
-    setLoading(false);
   };
 
   const filterMonth = () => {
     let monthNum = listOfMonths.indexOf(selectedMonth) + 1;
-    const filteredMembersList = allMembers.filter(member => ((member.birthdate).split("/"))[1] == monthNum);
+    const filteredMembersList = allMembers.filter(member => ((member.birthdate).split("/"))[1] === monthNum);
     if (selectedMonth === '') {
       setFilteredMembers(allMembers);
     }
@@ -130,7 +128,6 @@ export const Dashboard = () => {
     setAllMembers([]);
     setFilteredMembers([]);
     setSelectedMember({});
-    setLoading(false);
     setTimeout(() => {
       getUsers();
     }, 800);

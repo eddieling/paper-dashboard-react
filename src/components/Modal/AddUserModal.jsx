@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {
   Modal,
@@ -94,7 +94,7 @@ export function AddUserModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group as={Row} as={Row} controlId="formHorizontalFullName">
+          <Form.Group as={Row} controlId="formHorizontalFullName">
             <Col sm={3}>
               Full Name
             </Col>
