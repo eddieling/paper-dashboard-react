@@ -48,6 +48,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
   })
 
-const port = 7001;
+const port = 8080;
 app.listen(process.env.PORT || port);
 console.log("server started on port: " + port);
