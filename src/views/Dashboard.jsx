@@ -130,7 +130,7 @@ export const Dashboard = () => {
     setSelectedMember({});
     setTimeout(() => {
       getUsers();
-    }, 800);
+    }, 500);
   };
 
   const handleSelectMonth = (e) => { setSelectedMonth(e.target.value) }
