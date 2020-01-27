@@ -38,7 +38,7 @@
     "reactstrap": "8.0.0"
   },
   "scripts": {
-    "start": "run-p server start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
