@@ -67,7 +67,7 @@ export const Dashboard = () => {
 
   const filterMonth = () => {
     let monthNum = listOfMonths.indexOf(selectedMonth) + 1;
-    const filteredMembersList = allMembers.filter(member => ((member.birthdate).split("/"))[1] === monthNum);
+    const filteredMembersList = allMembers.filter(member => ((member.birthdate).split("/"))[1] === monthNum.toString());
     if (selectedMonth === '') {
       setFilteredMembers(allMembers);
     }
@@ -130,7 +130,7 @@ export const Dashboard = () => {
     setSelectedMember({});
     setTimeout(() => {
       getUsers();
-    }, 500);
+    }, 750);
   };
 
   const handleSelectMonth = (e) => { setSelectedMonth(e.target.value) }
