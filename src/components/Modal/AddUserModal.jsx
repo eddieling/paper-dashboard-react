@@ -18,6 +18,7 @@ export function AddUserModal(props) {
     fullname: '',
     email: '',
     phone: '',
+    gender: '',
     role: '',
     day: '',
     month: '',
@@ -45,6 +46,7 @@ export function AddUserModal(props) {
       fullname: state.fullname,
       email: state.email,
       phone: state.phone,
+      gender: state.gender,
       role: state.role,
       birthdate: birthdate,
       address1: state.address1,
@@ -118,6 +120,15 @@ export function AddUserModal(props) {
             </Col>
             <Col sm={4}>
               <Form.Control type="text" placeholder="Phone Number" name="phone" value={state.phone} onChange={handleChange}/>
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row} controlId="formHorizontalPhoneNum">
+            <Col sm={3}>
+              Gender
+            </Col>
+            <Col sm={4}>
+              <Form.Control type="text" placeholder="Gender" name="gender" value={state.gender} onChange={handleChange}/>
             </Col>
           </Form.Group>
 

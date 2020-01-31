@@ -55,9 +55,9 @@ class User extends React.Component {
                         className="avatar border-gray"
                         src={require("assets/img/mike.jpg")}
                       />
-                      <h5 className="title">Chet Faker</h5>
+                      <h5 className="title">Chet Smith</h5>
                     </a>
-                    <p className="description">@chetfaker</p>
+                    <p className="description">@chetsmith</p>
                   </div>
                   <p className="description text-center">
                     "I like the way you work it <br />
@@ -240,7 +240,7 @@ class User extends React.Component {
                         <FormGroup>
                           <label>Last Name</label>
                           <Input
-                            defaultValue="Faker"
+                            defaultValue="Smith"
                             placeholder="Last Name"
                             type="text"
                           />

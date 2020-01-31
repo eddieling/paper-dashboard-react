@@ -87,6 +87,9 @@ export const Dashboard = () => {
     dataField: 'phone',
     text: 'Phone'
   }, {
+    dataField: 'gender',
+    text: 'Gender'
+  }, {
     dataField: 'role',
     text: 'Role'
   }, {
