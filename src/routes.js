@@ -17,18 +17,18 @@
 
 */
 import Dashboard from "views/Dashboard.jsx";
-import Notifications from "views/Notifications.jsx";
-import Icons from "views/Icons.jsx";
-import Typography from "views/Typography.jsx";
-import TableList from "views/Tables.jsx";
-import Maps from "views/Map.jsx";
-import UserPage from "views/User.jsx";
+// import Notifications from "views/Notifications.jsx";
+// import Icons from "views/Icons.jsx";
+// import Typography from "views/Typography.jsx";
+// import TableList from "views/Tables.jsx";
+// import Maps from "views/Map.jsx";
+// import UserPage from "views/User.jsx";
 
 var routes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
-    icon: "nc-icon nc-bank",
+    name: "Members",
+    icon: "nc-icon nc-single-02",
     component: Dashboard,
     layout: "/admin"
   },
