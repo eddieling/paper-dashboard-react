@@ -159,7 +159,7 @@ class Header extends React.Component {
             navbar
             className="justify-content-end"
           >
-            <form>
+            {/* <form>
               <InputGroup className="no-border">
                 <Input placeholder="Search..." />
                 <InputGroupAddon addonType="append">
@@ -168,9 +168,9 @@ class Header extends React.Component {
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
-            </form>
+            </form> */}
             <Nav navbar>
-              <NavItem>
+              {/* <NavItem>
                 <Link to="#pablo" className="nav-link btn-magnify">
                   <i className="nc-icon nc-layout-11" />
                   <p>
@@ -202,9 +202,9 @@ class Header extends React.Component {
                     <span className="d-lg-none d-md-block">Account</span>
                   </p>
                 </Link>
-              </NavItem>
+              </NavItem> */}
               <NavItem onClick={this.handleSignOut}>
-              <NavLink href="">Log Out</NavLink>
+                <NavLink href="">Log Out</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
