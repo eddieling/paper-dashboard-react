@@ -26,7 +26,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import {Form} from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -38,6 +38,8 @@ import { fetchUsers } from '../api/users';
 import moment from 'moment';
 import { listOfMonths } from 'variables/general';
 import './Dashboard.css'
+
+
 export const Dashboard = () => {
 
   const [allMembers, setAllMembers] = useState([]);
@@ -115,8 +117,8 @@ export const Dashboard = () => {
 
   const rowStyle = (row, rowIndex) => {
     return {
-      cursor: 'pointer',      
-    }; 
+      cursor: 'pointer',
+    };
   };
 
   const [addModal, setAddModal] = React.useState(false);
@@ -132,7 +134,7 @@ export const Dashboard = () => {
     setSelectedMember({});
     setTimeout(() => {
       getUsers();
-    }, 750);
+    }, 800);
   };
 
   const handleSelectMonth = (e) => { setSelectedMonth(e.target.value) }

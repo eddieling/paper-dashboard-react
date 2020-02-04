@@ -5,7 +5,8 @@
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   padding: 8px 7px;
-  vertical-align: middle; }
+  vertical-align: middle;
+max-width: 200px; }
 
 .card .card-header .card-title {
   margin-top: 0px;
