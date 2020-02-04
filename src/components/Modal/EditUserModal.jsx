@@ -190,7 +190,7 @@ export function EditUserModal(props) {
             <Col sm={3}>
               Address Line 1
             </Col>
-            <Col sm={9}>
+            <Col sm={6}>
               <Form.Control disabled={!editActive} type="text" placeholder="Address Line 1" name="address1" value={state.address1} onChange={handleChange} />
             </Col>
           </Form.Group>
@@ -199,7 +199,7 @@ export function EditUserModal(props) {
             <Col sm={3}>
               Address Line 2 (Optional)
             </Col>
-            <Col sm={9}>
+            <Col sm={6}>
               <Form.Control disabled={!editActive} type="text" placeholder="Address Line 2 (Optional)" name="address2" value={state.address2} onChange={handleChange} />
             </Col>
           </Form.Group>
