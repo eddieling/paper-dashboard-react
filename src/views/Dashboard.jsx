@@ -25,7 +25,6 @@ import {
   CardTitle,
   Row,
   Col,
-
 } from "reactstrap";
 import {Form} from "react-bootstrap";
 
@@ -38,7 +37,7 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 import { fetchUsers } from '../api/users';
 import moment from 'moment';
 import { listOfMonths } from 'variables/general';
-
+import './Dashboard.css'
 export const Dashboard = () => {
 
   const [allMembers, setAllMembers] = useState([]);
@@ -116,8 +115,8 @@ export const Dashboard = () => {
 
   const rowStyle = (row, rowIndex) => {
     return {
-      cursor: 'pointer'
-    };
+      cursor: 'pointer',      
+    }; 
   };
 
   const [addModal, setAddModal] = React.useState(false);
@@ -190,6 +189,7 @@ export const Dashboard = () => {
                           rowEvents={rowEvents}
                           rowStyle={rowStyle}
                           pagination={paginationFactory()}
+                          tdStyle={{ padding: '3px' }}
                         />
                       </div>
                     )
